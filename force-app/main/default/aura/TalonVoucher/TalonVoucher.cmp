@@ -1,0 +1,31 @@
+<aura:component controller="TalonConnector" implements="flexipage:availableForAllPageTypes" access="global" >
+	<aura:attribute name="severity" type="List" default="[
+    {'label': 'Minor', 'value': 'minor'},
+    {'label': 'Medium', 'value': 'medium'},
+    {'label': 'Severe', 'value': 'severe'},
+    ]"/>
+    <aura:attribute name="area" type="List" default="[
+    {'label': 'Shipping', 'value': 'shippingIssue'},
+    {'label': 'Experience', 'value': 'experienceIssue'},
+    ]"/>
+	<aura:attribute name="selectedSeverity" type="String" default="medium"/>
+    <aura:attribute name="selectedArea" type="String" default="experienceIssue"/>
+    <aura:attribute name="voucher" type="String" default=""/>
+    <aura:attribute name="voucherDescription" type="String" default=""/>
+    <aura:attribute name="dealSize" type="Integer" default="100"/>
+    <lightning:card footer="Vouchers should only be used to compensate for a bad customer experience. Use at your own discretion." title="Voucher">
+        <p class="slds-p-horizontal_small">
+            <div aura:id="creationDiv">
+                <lightning:combobox name="progress" label="Area" value="{!v.selectedArea}" placeholder="Select area" options="{! v.area }" onchange="{! c.handleArea }"/>
+                <lightning:combobox name="progress" label="Severity" value="{!v.selectedSeverity}" placeholder="Select severity" options="{! v.severity }" onchange="{! c.handleSeverity }"/>
+                <lightning:input type="number" name="dealValue" label="Deal size" value="{!v.dealSize}" formatter="currency" step="0.01"/>
+                <br/>
+                <lightning:button variant="brand" label="Create coupon" title="Create coupon" onclick="{! c.createCoupon }" />
+			</div>
+            <div class="voucher slds-hide" aura:id="voucherDiv">
+                {!v.voucher}<br/>
+                <span style="font-size: 12px;">{!v.voucherDescription}</span>
+            </div>
+        </p>
+    </lightning:card>
+</aura:component>
